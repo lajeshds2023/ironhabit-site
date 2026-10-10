@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iron Habit — Train smart with dumbbells</title>
+  <meta name="description" content="Iron Habit is an Android fitness coach for dumbbell training. Get an AI workout and meal plan, snap meals for calories, watch 3D exercise videos, and log every set." />
+  <meta name="theme-color" content="#06081A" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="Iron Habit — Train smart with dumbbells" />
+  <meta property="og:description" content="AI workout and meal plans, photo calorie scans, 200+ exercises with 3D videos, and a log that keeps every set." />
+  <meta property="og:image" content="./images/hero.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --coral: #FF4D6D;
+      --coral-deep: #E6334F;
+      --mint: #22D3A6;
+      --lemon: #FFD166;
+      --ink: #F1F3FB;
+      --muted: #AEB6D9;
+      --bg: #06081A;
+      --bg-2: #0B0E26;
+      --card: #161A3A;
+      --line: rgba(255,255,255,.12);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Outfit, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    .orb {
+      position: fixed;
+      z-index: 0;
+      width: 46vw;
+      height: 46vw;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      opacity: .28;
+    }
+    .orb-a { top: -12vw; right: -8vw; background: #FF4D6D; }
+    .orb-b { bottom: 10%; left: -16vw; background: #22D3A6; opacity: .16; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(6,8,26,.62);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner, .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-family: Syne, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 1.15rem;
+    }
+    .brand img { width: 36px; height: 36px; }
+    .nav-links { display: flex; gap: 26px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: .95rem; }
+    .nav-links a:hover { color: var(--ink); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font: 600 0.95rem Outfit, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-coral { background: var(--coral); color: #fff; }
+    .btn-coral:hover { background: var(--coral-deep); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.35); }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      place-items: stretch;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 70% center;
+    }
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(6,8,26,.92) 0%, rgba(6,8,26,.55) 48%, rgba(6,8,26,.18) 100%),
+        linear-gradient(180deg, rgba(6,8,26,.2), rgba(6,8,26,.85));
+    }
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 12vh 0 8vh;
+      max-width: 680px;
+      margin-left: max(20px, calc((100% - var(--max)) / 2));
+    }
+    .eyebrow {
+      color: var(--mint);
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+    h1, h2, h3 { font-family: Syne, sans-serif; letter-spacing: -.04em; line-height: 1.05; margin: 0 0 .4em; }
+    h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); font-weight: 800; }
+    h2 { font-size: clamp(2rem, 4.4vw, 3.4rem); }
+    h3 { font-size: 1.35rem; }
+    .lead { font-size: 1.2rem; color: var(--muted); max-width: 36rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
+    .stats { display: flex; gap: 28px; flex-wrap: wrap; }
+    .stat b { display: block; font-family: Syne, sans-serif; font-size: 1.7rem; }
+    .stat span { color: var(--muted); font-size: .9rem; }
+
+    .ticker {
+      border-block: 1px solid var(--line);
+      background: #0a0d22;
+      overflow: hidden;
+      padding: 16px 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 40px;
+      width: max-content;
+      animation: slide 28s linear infinite;
+      color: var(--muted);
+      font-family: Syne, sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .86rem;
+    }
+    .ticker-track span { white-space: nowrap; }
+    .ticker-track em { color: var(--coral); font-style: normal; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+
+    section { position: relative; z-index: 1; padding: 96px 0; }
+    .split {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .split.reverse { grid-template-columns: .95fr 1.05fr; }
+    .split.reverse .copy { order: 2; }
+    .photo {
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+    .photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; }
+    .kicker { color: var(--coral); font-weight: 600; margin-bottom: 10px; }
+    .copy p { color: var(--muted); font-size: 1.08rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: .86rem;
+      color: var(--ink);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+    }
+    .card p { color: var(--muted); margin: 8px 0 0; }
+
+    .plans { background: linear-gradient(180deg, transparent, #0a0d24 12%, #0a0d24 88%, transparent); }
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 40px;
+    }
+    .plan {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .plan.featured {
+      background: linear-gradient(180deg, #241428, #161A3A);
+      border-color: rgba(255,77,109,.55);
+      box-shadow: 0 20px 60px rgba(255,77,109,.14);
+    }
+    .price { font-family: Syne, sans-serif; font-size: 2.2rem; margin: 8px 0 4px; }
+    .price small { font-size: 1rem; color: var(--muted); font-family: Outfit, sans-serif; }
+    .plan ul { padding: 0; margin: 18px 0 0; list-style: none; flex: 1; }
+    .plan li { padding: 8px 0 8px 22px; position: relative; color: var(--muted); }
+    .plan li::before {
+      content: "";
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--mint);
+      position: absolute; left: 0; top: 15px;
+    }
+
+    .cta {
+      text-align: center;
+      padding-bottom: 120px;
+    }
+    .cta .photo { margin: 36px auto 0; max-width: 920px; }
+    .cta .photo img { aspect-ratio: 16/9; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 0 48px;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    footer a { color: var(--ink); }
+
+    .reveal { opacity: 0; transform: translateY(24px); animation: rise .8s ease forwards; }
+    .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 860px) {
+      .nav-links a:not(.btn) { display: none; }
+      .split, .split.reverse, .grid-3, .plan-grid { grid-template-columns: 1fr; }
+      .split.reverse .copy { order: 0; }
+      .hero-copy { padding-top: 8vh; }
+      .photo img, .cta .photo img { aspect-ratio: 5/4; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <img src="./favicon.svg" alt="" />
+        Iron Habit
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#plans">Plans</a>
+        <a class="btn btn-coral" href="#get">Get the app</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-media">
+      <img src="./images/hero.jpg" alt="Athlete pressing dumbbells in a dark gym lit with coral light" />
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow reveal">Android fitness coach</p>
+      <h1 class="reveal d1">Train smart with dumbbells. Track every set.</h1>
+      <p class="lead reveal d2">A weekly plan built around your body, kitchen, and equipment — plus photo calorie scans and 3D exercise videos that play offline once they land.</p>
+      <div class="hero-actions reveal d2">
+        <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
+        <a class="btn btn-ghost" href="#features">See what it does</a>
+      </div>
+      <div class="stats reveal d3">
+        <div class="stat"><b>200+</b><span>exercises</span></div>
+        <div class="stat"><b>12</b><span>muscle groups</span></div>
+        <div class="stat"><b>7</b><span>days of meals</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Chest</span><span><em>/</em></span><span>Back</span><span><em>/</em></span>
+      <span>Shoulders</span><span><em>/</em></span><span>Biceps</span><span><em>/</em></span>
+      <span>Triceps</span><span><em>/</em></span><span>Core</span><span><em>/</em></span>
+      <span>Quads</span><span><em>/</em></span><span>Hamstrings</span><span><em>/</em></span>
+      <span>Glutes</span><span><em>/</em></span><span>Calves</span><span><em>/</em></span>
+      <span>Full body</span><span><em>/</em></span>
+      <span>Chest</span><span><em>/</em></span><span>Back</span><span><em>/</em></span>
+      <span>Shoulders</span><span><em>/</em></span><span>Biceps</span><span><em>/</em></span>
+      <span>Triceps</span><span><em>/</em></span><span>Core</span><span><em>/</em></span>
+      <span>Quads</span><span><em>/</em></span><span>Hamstrings</span><span><em>/</em></span>
+      <span>Glutes</span><span><em>/</em></span><span>Calves</span><span><em>/</em></span>
+      <span>Full body</span><span><em>/</em></span>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="wrap split">
+      <div class="copy">
+        <p class="kicker">Today</p>
+        <h2>Your day, already planned.</h2>
+        <p>Open the app and the work is waiting: a calorie ring, macros, today’s session with a one-tap start, and the rest of the week at a glance. No hunting through menus to find out what to lift or eat.</p>
+        <div class="chips">
+          <span class="chip">Calorie ring</span>
+          <span class="chip">Macro bars</span>
+          <span class="chip">One-tap start</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/today.jpg" alt="Morning training still-life with a glowing calorie ring on a phone" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split reverse">
+      <div class="copy">
+        <p class="kicker">AI workout week</p>
+        <h2>A training week that fits your gear and your joints.</h2>
+        <p>Tell Iron Habit your goal, experience, days, injuries, and equipment. Paid members get a Gemini-written week from the in-app catalog — dumbbells, cables, machines, or just a floor and gravity. Free members still get a solid catalog-built week.</p>
+        <div class="chips">
+          <span class="chip">Goal + target weight</span>
+          <span class="chip">Injuries respected</span>
+          <span class="chip">Rebuilds on Advanced</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/workout.jpg" alt="Glass weekly training board beside dumbbells and a kettlebell" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div class="copy">
+        <p class="kicker">Meal plan</p>
+        <h2>Seven days of plates, sized to your targets.</h2>
+        <p>Basic and Advanced unlock a full week of meals aimed at your calories and macros. Log a meal in one tap. If a food does not work for you, the follow-up questions already captured allergies and diet style.</p>
+        <div class="chips">
+          <span class="chip">Hits your macros</span>
+          <span class="chip">One-tap meal log</span>
+          <span class="chip">Diet-aware</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/meals.jpg" alt="A spread of high-protein meals laid out like a weekly diet" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split reverse">
+      <div class="copy">
+        <p class="kicker">Snap your meal</p>
+        <h2>Photograph the plate. Edit the guess.</h2>
+        <p>Point the camera at lunch. Gemini estimates calories and macros per dish. Every number stays editable, because portion size is a guess — not a verdict. Free gets 2 scans a day; Basic 5; Advanced 20.</p>
+        <div class="chips">
+          <span class="chip">On-device photo</span>
+          <span class="chip">Editable totals</span>
+          <span class="chip">Photos are not stored</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/scan.jpg" alt="Phone scanning a plated meal with a holographic nutrition overlay" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div class="copy">
+        <p class="kicker">Exercise library</p>
+        <h2>200+ moves. 3D videos that download only what you train.</h2>
+        <p>Browse by muscle, flip front and side, and follow step-by-step cues. The app ships light. The first time you open Chest, that video pack downloads once — then every chest demo plays offline forever.</p>
+        <div class="chips">
+          <span class="chip">12 on-demand packs</span>
+          <span class="chip">Front / side view</span>
+          <span class="chip">Dumbbell to cable</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/videos.jpg" alt="Motion frames of a dumbbell chest press in coral and mint light" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split reverse">
+      <div class="copy">
+        <p class="kicker">Log &amp; progress</p>
+        <h2>Every set, every muscle, on a calendar.</h2>
+        <p>Large steppers for reps and weight, a rest timer between sets, daily volume, a per-muscle breakdown, and a monthly heatmap. Guest data lives on the device; sign in with Google or email and it backs up.</p>
+        <div class="chips">
+          <span class="chip">Rest timer</span>
+          <span class="chip">Volume totals</span>
+          <span class="chip">Heatmap</span>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="./images/progress.jpg" alt="Athlete with a muscle heatmap and floating progress charts" />
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="kicker">Phone and tablet</p>
+      <h2>Portrait in your pocket. Landscape on the bench.</h2>
+      <p class="lead">Phones stay portrait. Tablets open in landscape with a two-pane layout — video on one side, the next set on the other — so the extra glass is actually used.</p>
+      <figure class="photo" style="margin-top:32px">
+        <img src="./images/devices.jpg" alt="Smartphone and tablet showing Iron Habit’s dark fitness interface" style="aspect-ratio:16/9" />
+      </figure>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Onboarding that matters</h3>
+          <p>Name, body, goal, experience, days, and diet — then an animated reveal of your calorie and macro targets. Optional follow-up covers priority muscles, gear, injuries, and allergies.</p>
+        </article>
+        <article class="card">
+          <h3>AI, with the lights on</h3>
+          <p>A one-time consent gate, and a disclaimer on every generated plan and scan. Iron Habit is a coach, not a clinician.</p>
+        </article>
+        <article class="card">
+          <h3>Your account, your data</h3>
+          <p>Google or email sign-in, or skip as a guest. Signed-in workouts sync. You can delete everything from Settings.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="plans">
+    <div class="wrap">
+      <p class="kicker">Membership</p>
+      <h2>Start free. Upgrade when the plan starts paying you back.</h2>
+      <p class="lead">Subscriptions are billed through Google Play. You can cancel there at any time.</p>
+      <div class="plan-grid">
+        <article class="plan">
+          <p class="eyebrow">Free</p>
+          <p class="price">$0</p>
+          <p>The on-device coach, with ads.</p>
+          <ul>
+            <li>Catalog-built workout week</li>
+            <li>2 photo scans a day</li>
+            <li>Full exercise library</li>
+            <li>Set logging and progress</li>
+          </ul>
+        </article>
+        <article class="plan">
+          <p class="eyebrow">Basic</p>
+          <p class="price">$2.99 <small>/ month</small></p>
+          <p>Your first AI training and diet week.</p>
+          <ul>
+            <li>Gemini workout + 7-day meals</li>
+            <li>5 photo scans a day</li>
+            <li>One AI plan — no monthly rebuilds</li>
+            <li>Everything in Free</li>
+          </ul>
+        </article>
+        <article class="plan featured">
+          <p class="eyebrow">Advanced</p>
+          <p class="price">$10.99 <small>/ month</small></p>
+          <p>Rebuild whenever training changes.</p>
+          <ul>
+            <li>20 photo scans a day</li>
+            <li>30 plan rebuilds a month</li>
+            <li>Ad-free</li>
+            <li>Everything in Basic</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="get">
+    <div class="wrap">
+      <p class="eyebrow">Google Play</p>
+      <h2>Build the habit. Keep the iron.</h2>
+      <p class="lead" style="margin:0 auto">Available on Android phones and tablets. Sign in, skip as a guest, or start with the free week tonight.</p>
+      <div class="hero-actions" style="justify-content:center; margin-top:28px">
+        <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
+        <a class="btn btn-ghost" href="https://lajeshds2023.github.io/ironhabit-legal/">Privacy policy</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="brand">
+        <img src="./favicon.svg" alt="" />
+        Iron Habit
+      </div>
+      <div>© 2026 Iron Habit · Not medical advice · <a href="mailto:lajeshds2023@gmail.com">lajeshds2023@gmail.com</a></div>
+    </div>
+  </footer>
+</body>
+</html>
