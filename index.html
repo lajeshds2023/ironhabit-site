@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iron Habit — Train smart with dumbbells</title>
-  <meta name="description" content="Iron Habit is an Android fitness coach for dumbbell training. Get an AI workout and meal plan, snap meals for calories, watch 3D exercise videos, and log every set." />
+  <title>Iron Habit — Train on the gear you have</title>
+  <meta name="description" content="Iron Habit is a fitness coach for the gym you actually use — barbell, dumbbell, cable, machine, kettlebell, or bodyweight. AI workout and meal plans, photo calorie scans, and 3D exercise videos." />
   <meta name="theme-color" content="#06081A" />
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <meta property="og:title" content="Iron Habit — Train smart with dumbbells" />
+  <meta property="og:title" content="Iron Habit — Train on the gear you have" />
   <meta property="og:description" content="AI workout and meal plans, photo calorie scans, 200+ exercises with 3D videos, and a log that keeps every set." />
   <meta property="og:image" content="./images/hero.jpg" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,560&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --coral: #FF4D6D;
@@ -33,7 +33,7 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Outfit, system-ui, sans-serif;
+      font-family: Manrope, system-ui, sans-serif;
       color: var(--ink);
       background: var(--bg);
       line-height: 1.55;
@@ -78,8 +78,9 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      font-family: Syne, sans-serif;
-      font-weight: 800;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 700;
+      font-variation-settings: "opsz" 72;
       letter-spacing: -.03em;
       font-size: 1.15rem;
     }
@@ -95,7 +96,7 @@
       border: 0;
       border-radius: 999px;
       padding: 13px 22px;
-      font: 600 0.95rem Outfit, sans-serif;
+      font: 600 0.95rem Manrope, sans-serif;
       text-decoration: none;
       cursor: pointer;
     }
@@ -148,14 +149,14 @@
       text-transform: uppercase;
       font-size: .78rem;
     }
-    h1, h2, h3 { font-family: Syne, sans-serif; letter-spacing: -.04em; line-height: 1.05; margin: 0 0 .4em; }
-    h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); font-weight: 800; }
-    h2 { font-size: clamp(2rem, 4.4vw, 3.4rem); }
+    h1, h2, h3 { font-family: Fraunces, Georgia, serif; letter-spacing: -.03em; line-height: 1.08; margin: 0 0 .4em; font-variation-settings: "opsz" 80; }
+    h1 { font-size: clamp(2.6rem, 6.4vw, 5rem); font-weight: 560; font-style: italic; }
+    h2 { font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 560; font-style: italic; }
     h3 { font-size: 1.35rem; }
     .lead { font-size: 1.2rem; color: var(--muted); max-width: 36rem; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
     .stats { display: flex; gap: 28px; flex-wrap: wrap; }
-    .stat b { display: block; font-family: Syne, sans-serif; font-size: 1.7rem; }
+    .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.7rem; font-style: italic; }
     .stat span { color: var(--muted); font-size: .9rem; }
 
     .ticker {
@@ -170,8 +171,8 @@
       width: max-content;
       animation: slide 28s linear infinite;
       color: var(--muted);
-      font-family: Syne, sans-serif;
-      letter-spacing: .08em;
+      font-family: Manrope, sans-serif;
+      letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .86rem;
     }
@@ -242,8 +243,8 @@
       border-color: rgba(255,77,109,.55);
       box-shadow: 0 20px 60px rgba(255,77,109,.14);
     }
-    .price { font-family: Syne, sans-serif; font-size: 2.2rem; margin: 8px 0 4px; }
-    .price small { font-size: 1rem; color: var(--muted); font-family: Outfit, sans-serif; }
+    .price { font-family: Fraunces, Georgia, serif; font-size: 2.2rem; margin: 8px 0 4px; font-style: italic; }
+    .price small { font-size: 1rem; color: var(--muted); font-family: Manrope, sans-serif; font-style: normal; }
     .plan ul { padding: 0; margin: 18px 0 0; list-style: none; flex: 1; }
     .plan li { padding: 8px 0 8px 22px; position: relative; color: var(--muted); }
     .plan li::before {
@@ -275,6 +276,29 @@
       align-items: center;
     }
     footer a { color: var(--ink); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(6,8,26,.72);
+      backdrop-filter: blur(10px);
+    }
+    .modal.open { display: grid !important; }
+    .modal-card {
+      width: min(440px, 100%);
+      background: #161A3A;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,.4);
+    }
+    .modal-card h2 { margin-bottom: 10px; }
+    .modal-card p { color: var(--muted); margin: 0 0 22px; }
 
     .reveal { opacity: 0; transform: translateY(24px); animation: rise .8s ease forwards; }
     .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
@@ -309,38 +333,34 @@
 
   <header class="hero" id="top">
     <div class="hero-media">
-      <img src="./images/hero.jpg" alt="Athlete pressing dumbbells in a dark gym lit with coral light" />
+      <img src="./images/hero.jpg" alt="A full gym at night — squat rack, cables, machines, and free weights" />
     </div>
     <div class="hero-copy">
-      <p class="eyebrow reveal">Android fitness coach</p>
-      <h1 class="reveal d1">Train smart with dumbbells. Track every set.</h1>
-      <p class="lead reveal d2">A weekly plan built around your body, kitchen, and equipment — plus photo calorie scans and 3D exercise videos that play offline once they land.</p>
+      <p class="eyebrow reveal">Fitness coach · Android now · iPhone next</p>
+      <h1 class="reveal d1">Train on the gear you have. Track every set.</h1>
+      <p class="lead reveal d2">A weekly plan for the rack, the cable stack, the machines, or the living-room floor — plus photo calorie scans and 3D videos that play offline once they land.</p>
       <div class="hero-actions reveal d2">
         <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
-        <a class="btn btn-ghost" href="#features">See what it does</a>
+        <a class="btn btn-ghost" href="#ios" id="ios-open">Download on the App Store</a>
       </div>
       <div class="stats reveal d3">
         <div class="stat"><b>200+</b><span>exercises</span></div>
+        <div class="stat"><b>8</b><span>equipment types</span></div>
         <div class="stat"><b>12</b><span>muscle groups</span></div>
-        <div class="stat"><b>7</b><span>days of meals</span></div>
       </div>
     </div>
   </header>
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span>Chest</span><span><em>/</em></span><span>Back</span><span><em>/</em></span>
-      <span>Shoulders</span><span><em>/</em></span><span>Biceps</span><span><em>/</em></span>
-      <span>Triceps</span><span><em>/</em></span><span>Core</span><span><em>/</em></span>
-      <span>Quads</span><span><em>/</em></span><span>Hamstrings</span><span><em>/</em></span>
-      <span>Glutes</span><span><em>/</em></span><span>Calves</span><span><em>/</em></span>
-      <span>Full body</span><span><em>/</em></span>
-      <span>Chest</span><span><em>/</em></span><span>Back</span><span><em>/</em></span>
-      <span>Shoulders</span><span><em>/</em></span><span>Biceps</span><span><em>/</em></span>
-      <span>Triceps</span><span><em>/</em></span><span>Core</span><span><em>/</em></span>
-      <span>Quads</span><span><em>/</em></span><span>Hamstrings</span><span><em>/</em></span>
-      <span>Glutes</span><span><em>/</em></span><span>Calves</span><span><em>/</em></span>
-      <span>Full body</span><span><em>/</em></span>
+      <span>Barbell</span><span><em>/</em></span><span>Dumbbell</span><span><em>/</em></span>
+      <span>Kettlebell</span><span><em>/</em></span><span>Cable</span><span><em>/</em></span>
+      <span>Machine</span><span><em>/</em></span><span>Smith</span><span><em>/</em></span>
+      <span>Bodyweight</span><span><em>/</em></span><span>Resistance band</span><span><em>/</em></span>
+      <span>Barbell</span><span><em>/</em></span><span>Dumbbell</span><span><em>/</em></span>
+      <span>Kettlebell</span><span><em>/</em></span><span>Cable</span><span><em>/</em></span>
+      <span>Machine</span><span><em>/</em></span><span>Smith</span><span><em>/</em></span>
+      <span>Bodyweight</span><span><em>/</em></span><span>Resistance band</span><span><em>/</em></span>
     </div>
   </div>
 
@@ -367,15 +387,15 @@
       <div class="copy">
         <p class="kicker">AI workout week</p>
         <h2>A training week that fits your gear and your joints.</h2>
-        <p>Tell Iron Habit your goal, experience, days, injuries, and equipment. Paid members get a Gemini-written week from the in-app catalog — dumbbells, cables, machines, or just a floor and gravity. Free members still get a solid catalog-built week.</p>
+        <p>Tell Iron Habit your goal, experience, days, injuries, and what you can actually touch. Paid members get a Gemini-written week from the full catalog — barbell, dumbbell, kettlebell, cable, machine, Smith, bands, or bodyweight. Free members still get a solid catalog-built week.</p>
         <div class="chips">
-          <span class="chip">Goal + target weight</span>
+          <span class="chip">Uses your equipment</span>
           <span class="chip">Injuries respected</span>
           <span class="chip">Rebuilds on Advanced</span>
         </div>
       </div>
       <figure class="photo">
-        <img src="./images/workout.jpg" alt="Glass weekly training board beside dumbbells and a kettlebell" />
+        <img src="./images/workout.jpg" alt="A weekly training board with mixed gym equipment" />
       </figure>
     </div>
   </section>
@@ -421,15 +441,15 @@
       <div class="copy">
         <p class="kicker">Exercise library</p>
         <h2>200+ moves. 3D videos that download only what you train.</h2>
-        <p>Browse by muscle, flip front and side, and follow step-by-step cues. The app ships light. The first time you open Chest, that video pack downloads once — then every chest demo plays offline forever.</p>
+        <p>Browse by muscle, flip front and side, and follow step-by-step cues across eight equipment types. The app ships light. The first time you open a muscle group, that video pack downloads once — then every demo in it plays offline forever.</p>
         <div class="chips">
           <span class="chip">12 on-demand packs</span>
           <span class="chip">Front / side view</span>
-          <span class="chip">Dumbbell to cable</span>
+          <span class="chip">Eight equipment types</span>
         </div>
       </div>
       <figure class="photo">
-        <img src="./images/videos.jpg" alt="Motion frames of a dumbbell chest press in coral and mint light" />
+        <img src="./images/videos.jpg" alt="Motion frames of a strength exercise in coral and mint light" />
       </figure>
     </div>
   </section>
@@ -522,13 +542,14 @@
 
   <section class="cta" id="get">
     <div class="wrap">
-      <p class="eyebrow">Google Play</p>
+      <p class="eyebrow">Get Iron Habit</p>
       <h2>Build the habit. Keep the iron.</h2>
-      <p class="lead" style="margin:0 auto">Available on Android phones and tablets. Sign in, skip as a guest, or start with the free week tonight.</p>
+      <p class="lead" style="margin:0 auto">On Android phones and tablets today. The iPhone app is on the way. Sign in, skip as a guest, or start with the free week tonight.</p>
       <div class="hero-actions" style="justify-content:center; margin-top:28px">
         <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
-        <a class="btn btn-ghost" href="https://lajeshds2023.github.io/ironhabit-legal/">Privacy policy</a>
+        <a class="btn btn-ghost" href="#ios" id="ios-open-2">Download on the App Store</a>
       </div>
+      <p style="margin-top:18px"><a href="https://lajeshds2023.github.io/ironhabit-legal/" style="color:var(--muted)">Privacy policy</a></p>
     </div>
   </section>
 
@@ -541,5 +562,38 @@
       <div>© 2026 Iron Habit · Not medical advice · <a href="mailto:lajeshds2023@gmail.com">lajeshds2023@gmail.com</a></div>
     </div>
   </footer>
+
+  <div class="modal" id="ios-modal" role="dialog" aria-modal="true" aria-labelledby="ios-title" hidden>
+    <div class="modal-card">
+      <p class="eyebrow">iPhone &amp; iPad</p>
+      <h2 id="ios-title">Coming soon</h2>
+      <p>Iron Habit is on Google Play today. The App Store release is in the works — same coach, same plans, same log.</p>
+      <button class="btn btn-coral" type="button" id="ios-close">Got it</button>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var modal = document.getElementById("ios-modal");
+      function openIos(event) {
+        event.preventDefault();
+        modal.hidden = false;
+        modal.classList.add("open");
+      }
+      function closeIos() {
+        modal.classList.remove("open");
+        modal.hidden = true;
+      }
+      document.querySelectorAll("#ios-open, #ios-open-2").forEach(function (el) {
+        el.addEventListener("click", openIos);
+      });
+      document.getElementById("ios-close").addEventListener("click", closeIos);
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) closeIos();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeIos();
+      });
+    })();
+  </script>
 </body>
 </html>
