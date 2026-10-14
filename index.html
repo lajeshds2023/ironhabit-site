@@ -13,7 +13,7 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,560&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --coral: #FF4D6D;
@@ -33,7 +33,7 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Manrope, system-ui, sans-serif;
+      font-family: Inter, system-ui, sans-serif;
       color: var(--ink);
       background: var(--bg);
       line-height: 1.55;
@@ -78,10 +78,9 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      font-family: Fraunces, Georgia, serif;
+      font-family: Inter, system-ui, sans-serif;
       font-weight: 700;
-      font-variation-settings: "opsz" 72;
-      letter-spacing: -.03em;
+      letter-spacing: -.04em;
       font-size: 1.15rem;
     }
     .brand img { width: 36px; height: 36px; }
@@ -96,7 +95,7 @@
       border: 0;
       border-radius: 999px;
       padding: 13px 22px;
-      font: 600 0.95rem Manrope, sans-serif;
+      font: 600 0.95rem Inter, system-ui, sans-serif;
       text-decoration: none;
       cursor: pointer;
     }
@@ -149,14 +148,14 @@
       text-transform: uppercase;
       font-size: .78rem;
     }
-    h1, h2, h3 { font-family: Fraunces, Georgia, serif; letter-spacing: -.03em; line-height: 1.08; margin: 0 0 .4em; font-variation-settings: "opsz" 80; }
-    h1 { font-size: clamp(2.6rem, 6.4vw, 5rem); font-weight: 560; font-style: italic; }
-    h2 { font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 560; font-style: italic; }
+    h1, h2, h3 { font-family: Inter, system-ui, sans-serif; letter-spacing: -.045em; line-height: 1.05; margin: 0 0 .4em; font-weight: 700; }
+    h1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
+    h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); }
     h3 { font-size: 1.35rem; }
     .lead { font-size: 1.2rem; color: var(--muted); max-width: 36rem; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
     .stats { display: flex; gap: 28px; flex-wrap: wrap; }
-    .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.7rem; font-style: italic; }
+    .stat b { display: block; font-family: Inter, system-ui, sans-serif; font-size: 1.7rem; font-weight: 700; letter-spacing: -.04em; }
     .stat span { color: var(--muted); font-size: .9rem; }
 
     .ticker {
@@ -171,7 +170,7 @@
       width: max-content;
       animation: slide 28s linear infinite;
       color: var(--muted);
-      font-family: Manrope, sans-serif;
+      font-family: Inter, system-ui, sans-serif;
       letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .86rem;
@@ -243,8 +242,8 @@
       border-color: rgba(255,77,109,.55);
       box-shadow: 0 20px 60px rgba(255,77,109,.14);
     }
-    .price { font-family: Fraunces, Georgia, serif; font-size: 2.2rem; margin: 8px 0 4px; font-style: italic; }
-    .price small { font-size: 1rem; color: var(--muted); font-family: Manrope, sans-serif; font-style: normal; }
+    .price { font-family: Inter, system-ui, sans-serif; font-size: 2.2rem; font-weight: 700; letter-spacing: -.04em; margin: 8px 0 4px; }
+    .price small { font-size: 1rem; color: var(--muted); font-family: Inter, system-ui, sans-serif; font-weight: 500; }
     .plan ul { padding: 0; margin: 18px 0 0; list-style: none; flex: 1; }
     .plan li { padding: 8px 0 8px 22px; position: relative; color: var(--muted); }
     .plan li::before {
