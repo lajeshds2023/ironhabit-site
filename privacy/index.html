@@ -101,7 +101,7 @@
       </div>
       <div class="eyebrow">Iron Habit</div>
       <h1>Iron Habit Privacy Policy</h1>
-      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 14 October 2026</p>
+      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 1 November 2026</p>
       <p>App: Iron Habit &nbsp;·&nbsp; Platforms: Android and iOS &nbsp;·&nbsp; <a href="https://iron-habit.com" style="color:inherit">iron-habit.com</a></p>
     </div>
   </header>
@@ -227,6 +227,7 @@
       <li><strong>Analytics.</strong> The Firebase Analytics SDK is included. It can collect automatic events such as app opens, device and locale information, and an app-instance id. We do not currently log custom events from our own screens, but Google’s automatic collection still applies unless you reset advertising / analytics settings on the device.</li>
       <li><strong>Advertising identifier.</strong> Free and Basic show Google AdMob banners. On Android the app declares the advertising-ID permission for those banners. On iOS, ads may use Apple’s advertising identifier only if you allow tracking. Advanced is ad-free and does not show those banners.</li>
       <li><strong>App Check.</strong> Release builds exchange an integrity token with Firebase App Check before AI calls, so the request comes from a genuine install. On Android that token is from Google Play Integrity. On iOS it is from Apple App Attest. Emulators and sideloaded copies typically fail this check. The token is an integrity attestation, not your workout log.</li>
+      <li><strong>Device identifier for usage limits (Android).</strong> To enforce the free and paid usage allowances — such as the daily photo-scan limit and the monthly plan-rebuild limit — and to stop them being reset by clearing app data or reinstalling, the Android app reads the system <code>ANDROID_ID</code>, stores only a one-way SHA-256 hash of it, and uses that hash as the key for a per-device usage counter in Firestore. We never store or transmit the raw identifier, and it is used solely for abuse prevention and quota enforcement — not for advertising, profiling or cross-app tracking.</li>
       <li><strong>Store and advertising identifiers</strong> used by AdMob, in-app purchases, on-demand videos and App Check. We do not run our own location tracking.</li>
     </ul>
 
@@ -467,6 +468,7 @@
     <ul>
       <li>We keep cloud data until you delete the account or the Auth user is removed.</li>
       <li>“Delete all my data” in Settings re-authenticates if needed, deletes every document under <code>users/{uid}</code> (the collections listed above), deletes the Firebase Auth account, clears local profile/plan/nutrition/sessions/entitlement (including food thumbnails), then signs you out.</li>
+      <li><strong>Abuse-prevention device counter.</strong> The hashed device identifier (section 3.7) and its per-device usage counter are retained for security and abuse prevention, and are deliberately <em>not</em> removed by “Delete all my data” or by uninstalling the app — otherwise the free and paid usage limits they enforce could be reset at will. They contain no profile, account or health data: only a non-reversible device hash and usage counts.</li>
       <li>Guest-only data that never left the device is wiped from that device when you use the same control.</li>
       <li>Crash and analytics records follow Google’s retention for those products.</li>
       <li>Store purchase history remains with Google Play or Apple even after you delete the Iron Habit account.</li>
