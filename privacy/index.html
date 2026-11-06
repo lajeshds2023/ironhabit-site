@@ -204,7 +204,8 @@
       <li>which planned meals you ticked as eaten;</li>
       <li>manual extras and confirmed photo-scan items: name, calories, macros, source (typed or photo), confidence label, time logged;</li>
       <li>how much water you logged each day (in millilitres), using the hydration tracker on the Today tab;</li>
-      <li>on the server we store a compact day summary: date, eaten meal ids, extras count, extras calories, number of photo scans, water logged — <strong>not the photo itself</strong>.</li>
+      <li>body-weight weigh-ins you log from the Today tab (the date and the weight; logging again the same day replaces that day’s reading). The latest weigh-in also updates the current weight in your profile;</li>
+      <li>on the server we store a compact day summary: date, eaten meal ids, extras count, extras calories, number of photo scans, water logged, the day’s weigh-in if any — <strong>not the photo itself</strong>.</li>
     </ul>
 
     <h3>3.5 Food photos</h3>
@@ -320,7 +321,7 @@
     <p>
       Advanced members get a short daily note from an AI coach on the Today tab. After you accept the
       in-app AI notice, the app periodically sends Gemini a text prompt that can include: the name you gave us, your goal and
-      goal weight, current and starting weight, how far into your goal timeline you are, today’s calorie
+      goal weight, current and starting weight, how many days since your last weigh-in, how far into your goal timeline you are, today’s calorie
       and macro targets and what you have eaten so far, water logged against your water target, calories
       burned from Health Connect (if connected), today’s planned and finished workouts, and simple counts
       from the last seven days (days logged, days on target, workouts finished).
