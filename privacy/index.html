@@ -101,7 +101,7 @@
       </div>
       <div class="eyebrow">Iron Habit</div>
       <h1>Iron Habit Privacy Policy</h1>
-      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 1 November 2026</p>
+      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 6 November 2026</p>
       <p>App: Iron Habit &nbsp;·&nbsp; Platforms: Android and iOS &nbsp;·&nbsp; <a href="https://iron-habit.com" style="color:inherit">iron-habit.com</a></p>
     </div>
   </header>
@@ -203,7 +203,8 @@
       <li>planned meals for the week (name, meal type, calories, protein, carbs, fat, ingredients);</li>
       <li>which planned meals you ticked as eaten;</li>
       <li>manual extras and confirmed photo-scan items: name, calories, macros, source (typed or photo), confidence label, time logged;</li>
-      <li>on the server we store a compact day summary: date, eaten meal ids, extras count, extras calories, number of photo scans — <strong>not the photo itself</strong>.</li>
+      <li>how much water you logged each day (in millilitres), using the hydration tracker on the Today tab;</li>
+      <li>on the server we store a compact day summary: date, eaten meal ids, extras count, extras calories, number of photo scans, water logged — <strong>not the photo itself</strong>.</li>
     </ul>
 
     <h3>3.5 Food photos</h3>
@@ -231,7 +232,25 @@
       <li><strong>Store and advertising identifiers</strong> used by AdMob, in-app purchases, on-demand videos and App Check. We do not run our own location tracking.</li>
     </ul>
 
-    <h3>3.8 What we do not collect</h3>
+    <h3 id="health-connect">3.8 Health Connect (Android, optional)</h3>
+    <p>
+      If you choose to connect Health Connect, the Android app asks for read access to
+      <strong>active calories burned</strong> and <strong>total calories burned</strong>. It never asks for any other
+      Health Connect data type and never writes to Health Connect.
+    </p>
+    <ul>
+      <li><strong>What we read:</strong> today’s calories burned, totalled from local midnight to now, from whichever apps and devices you allow to write to Health Connect.</li>
+      <li><strong>How it is used:</strong> the total is shown next to the calories you have eaten on the Today tab. On the Advanced plan, today’s total is also included in the prompt for your daily AI coach insight (see <a href="#ai">section 5.3</a>).</li>
+      <li><strong>What we do not do:</strong> we do not store Health Connect data on our servers, upload it to Firestore, sell it, share it with advertisers, or use it for advertising, profiling or credit decisions. The app reads it fresh each time the Today tab opens and keeps it only in memory.</li>
+      <li><strong>Your control:</strong> Health Connect is off until you tap Connect. You can revoke access at any time in Health Connect settings or from Settings → Connected apps in Iron Habit; the app keeps working without it.</li>
+    </ul>
+    <p>
+      Iron Habit’s use of information received from Health Connect adheres to the
+      <a href="https://support.google.com/googleplay/android-developer/answer/12991134">Health Connect Permissions policy</a>,
+      including the Limited Use requirements. Health Connect is not used by the iOS app.
+    </p>
+
+    <h3>3.9 What we do not collect</h3>
     <ul>
       <li>precise GPS location;</li>
       <li>contacts, SMS, call logs, or microphone audio;</li>
@@ -297,7 +316,22 @@
       saved to your log until you confirm. You can edit or discard every number.
     </p>
 
-    <h3>5.3 Who runs the model</h3>
+    <h3>5.3 Coach insights (Advanced)</h3>
+    <p>
+      Advanced members get a short daily note from an AI coach on the Today tab. After you accept the
+      in-app AI notice, the app periodically sends Gemini a text prompt that can include: the name you gave us, your goal and
+      goal weight, current and starting weight, how far into your goal timeline you are, today’s calorie
+      and macro targets and what you have eaten so far, water logged against your water target, calories
+      burned from Health Connect (if connected), today’s planned and finished workouts, and simple counts
+      from the last seven days (days logged, days on target, workouts finished).
+    </p>
+    <p>
+      We do not send your Google email, payment details, food photos or free-text notes in this request. The latest note is
+      cached on the device only and cleared when you sign out or delete your data. Insights are limited to
+      a few per day; if Gemini is unavailable the app shows an on-device tip instead.
+    </p>
+
+    <h3>5.4 Who runs the model</h3>
     <p>
       Calls go through <strong>Firebase AI Logic</strong> to <strong>Google Gemini</strong>
       (currently a Flash model on Google’s Vertex AI / global Gemini endpoint), protected by
