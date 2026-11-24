@@ -50,10 +50,16 @@
         "name": "Iron Habit",
         "url": "https://iron-habit.com/",
         "applicationCategory": "HealthApplication",
-        "operatingSystem": "Android",
+        "operatingSystem": "Android, iOS",
         "description": "Workout tracker and fitness coach for barbell, dumbbell, kettlebell, cable, machine, Smith, bodyweight, and resistance-band training. Includes AI workout and meal plans, photo calorie scans, and 3D exercise videos.",
-        "downloadUrl": "https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit",
-        "installUrl": "https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit",
+        "downloadUrl": [
+          "https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit",
+          "https://apps.apple.com/in/app/iron-habit/id6821711550"
+        ],
+        "installUrl": [
+          "https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit",
+          "https://apps.apple.com/in/app/iron-habit/id6821711550"
+        ],
         "image": "https://iron-habit.com/images/hero.jpg",
         "screenshot": [
           "https://iron-habit.com/images/today.jpg",
@@ -78,7 +84,7 @@
             "name": "What is Iron Habit?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "An Android fitness coach that builds a weekly workout from the equipment you actually have, logs every set, and can plan meals and scan a plate for calories."
+              "text": "A fitness coach for Android and iPhone that builds a weekly workout from the equipment you actually have, logs every set, and can plan meals and scan a plate for calories."
             }
           },
           {
@@ -86,7 +92,7 @@
             "name": "Is Iron Habit free?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Free includes a catalog-built workout week, 2 photo scans a day, the full exercise library, and set logging. Basic is $2.99 a month. Advanced is $10.99 a month. Both are billed through Google Play."
+              "text": "Yes. Free includes a catalog-built workout week, 2 photo scans a day, the full exercise library, and set logging. Basic is $2.99 a month. Advanced is $10.99 a month. Subscriptions are billed through Google Play on Android and the App Store on iPhone and iPad."
             }
           },
           {
@@ -110,7 +116,7 @@
             "name": "Is it on the App Store?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Iron Habit is on Google Play for Android phones and tablets. The iPhone and iPad app is still in the works."
+              "text": "Yes. Iron Habit is on the App Store for iPhone and iPad, and on Google Play for Android phones and tablets."
             }
           },
           {
@@ -394,29 +400,6 @@
     }
     footer a { color: var(--ink); }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      display: none;
-      place-items: center;
-      padding: 24px;
-      background: rgba(6,8,26,.72);
-      backdrop-filter: blur(10px);
-    }
-    .modal.open { display: grid !important; }
-    .modal-card {
-      width: min(440px, 100%);
-      background: #161A3A;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 32px;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,.4);
-    }
-    .modal-card h2 { margin-bottom: 10px; }
-    .modal-card p { color: var(--muted); margin: 0 0 22px; }
-
     .reveal { opacity: 0; transform: translateY(24px); animation: rise .8s ease forwards; }
     .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
     @keyframes rise { to { opacity: 1; transform: none; } }
@@ -454,12 +437,12 @@
       <img src="./images/hero.jpg" width="1280" height="720" alt="Illustrated gym with a squat rack, cables, machines, and free weights" />
     </div>
     <div class="hero-copy">
-      <p class="eyebrow reveal">Fitness coach · Android now · iPhone next</p>
+      <p class="eyebrow reveal">Fitness coach · Android and iPhone</p>
       <h1 class="reveal d1">Train on the gear you have. Track every set.</h1>
       <p class="lead reveal d2">A weekly plan for the rack, the cable stack, the machines, or the living-room floor — plus photo calorie scans and 3D videos that play offline once they land.</p>
       <div class="hero-actions reveal d2">
         <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
-        <a class="btn btn-ghost" href="#ios" id="ios-open">Download on the App Store</a>
+        <a class="btn btn-ghost" href="https://apps.apple.com/in/app/iron-habit/id6821711550">Download on the App Store</a>
       </div>
       <div class="stats reveal d3">
         <div class="stat"><b>200+</b><span>exercises</span></div>
@@ -619,7 +602,7 @@
     <div class="wrap">
       <p class="kicker">Membership</p>
       <h2>Start free. Upgrade when the plan starts paying you back.</h2>
-      <p class="lead">Subscriptions are billed through Google Play. You can cancel there at any time.</p>
+      <p class="lead">Subscriptions are billed through Google Play on Android and the App Store on iPhone and iPad. You can cancel in the store you subscribed from.</p>
       <div class="plan-grid">
         <article class="plan">
           <p class="eyebrow">Free</p>
@@ -665,11 +648,11 @@
       <div class="faq">
         <article class="card">
           <h3>What is Iron Habit?</h3>
-          <p>An Android fitness coach that builds a weekly workout from the equipment you actually have, logs every set, and can plan meals and scan a plate for calories.</p>
+          <p>A fitness coach for Android and iPhone that builds a weekly workout from the equipment you actually have, logs every set, and can plan meals and scan a plate for calories.</p>
         </article>
         <article class="card">
           <h3>Is Iron Habit free?</h3>
-          <p>Yes. Free includes a catalog-built workout week, 2 photo scans a day, the full exercise library, and set logging. Basic is $2.99 a month. Advanced is $10.99 a month. Both are billed through Google Play.</p>
+          <p>Yes. Free includes a catalog-built workout week, 2 photo scans a day, the full exercise library, and set logging. Basic is $2.99 a month. Advanced is $10.99 a month. Subscriptions are billed through Google Play on Android and the App Store on iPhone and iPad.</p>
         </article>
         <article class="card">
           <h3>What equipment does it support?</h3>
@@ -681,7 +664,7 @@
         </article>
         <article class="card">
           <h3>Is it on the App Store?</h3>
-          <p>Iron Habit is on Google Play for Android phones and tablets. The iPhone and iPad app is still in the works.</p>
+          <p>Yes. Iron Habit is on the App Store for iPhone and iPad, and on Google Play for Android phones and tablets.</p>
         </article>
         <article class="card">
           <h3>Is this medical advice?</h3>
@@ -695,10 +678,10 @@
     <div class="wrap">
       <p class="eyebrow">Get Iron Habit</p>
       <h2>Build the habit. Keep the iron.</h2>
-      <p class="lead" style="margin:0 auto">On Android phones and tablets today. The iPhone app is on the way. Sign in, skip as a guest, or start with the free week tonight.</p>
+      <p class="lead" style="margin:0 auto">On Android phones and tablets, and on iPhone and iPad. Sign in, skip as a guest, or start with the free week tonight.</p>
       <div class="hero-actions" style="justify-content:center; margin-top:28px">
         <a class="btn btn-coral" href="https://play.google.com/store/apps/details?id=com.lajenaxai.ironhabit">Get it on Google Play</a>
-        <a class="btn btn-ghost" href="#ios" id="ios-open-2">Download on the App Store</a>
+        <a class="btn btn-ghost" href="https://apps.apple.com/in/app/iron-habit/id6821711550">Download on the App Store</a>
       </div>
       <p style="margin-top:18px"><a href="privacy/" style="color:var(--muted)">Privacy policy</a>
         · <a href="https://iron-habit.com" style="color:var(--muted)">iron-habit.com</a></p>
@@ -715,37 +698,5 @@
     </div>
   </footer>
 
-  <div class="modal" id="ios-modal" role="dialog" aria-modal="true" aria-labelledby="ios-title" hidden>
-    <div class="modal-card">
-      <p class="eyebrow">iPhone &amp; iPad</p>
-      <h2 id="ios-title">Coming soon</h2>
-      <p>Iron Habit is on Google Play today. The App Store release is in the works — same coach, same plans, same log.</p>
-      <button class="btn btn-coral" type="button" id="ios-close">Got it</button>
-    </div>
-  </div>
-  <script>
-    (function () {
-      var modal = document.getElementById("ios-modal");
-      function openIos(event) {
-        event.preventDefault();
-        modal.hidden = false;
-        modal.classList.add("open");
-      }
-      function closeIos() {
-        modal.classList.remove("open");
-        modal.hidden = true;
-      }
-      document.querySelectorAll("#ios-open, #ios-open-2").forEach(function (el) {
-        el.addEventListener("click", openIos);
-      });
-      document.getElementById("ios-close").addEventListener("click", closeIos);
-      modal.addEventListener("click", function (event) {
-        if (event.target === modal) closeIos();
-      });
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") closeIos();
-      });
-    })();
-  </script>
 </body>
 </html>
