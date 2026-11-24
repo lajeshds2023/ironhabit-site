@@ -101,7 +101,7 @@
       </div>
       <div class="eyebrow">Iron Habit</div>
       <h1>Iron Habit Privacy Policy</h1>
-      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 6 November 2026</p>
+      <p>Effective date: 10 October 2026 &nbsp;·&nbsp; Last updated: 24 November 2026</p>
       <p>App: Iron Habit &nbsp;·&nbsp; Platforms: Android and iOS &nbsp;·&nbsp; <a href="https://iron-habit.com" style="color:inherit">iron-habit.com</a></p>
     </div>
   </header>
@@ -154,7 +154,8 @@
     <ul>
       <li>the Iron Habit apps on Android and iOS, including phone and tablet layouts;</li>
       <li>our Firebase project that stores your account and synced data;</li>
-      <li>AI features that send limited profile information and (when you scan a meal) a photo to Google’s Gemini models;</li>
+      <li>AI features that send limited profile information, your coach chat messages and (when you scan a meal) a photo to Google’s Gemini models;</li>
+      <li>the optional read-only connection to Health Connect on Android and Apple Health on iOS;</li>
       <li>the app stores you install from (Google Play on Android, the Apple App Store on iOS), in-app purchases, on-demand exercise videos, Firebase App Check, AdMob, Crashlytics and Analytics used by the apps.</li>
     </ul>
     <p>It does not cover websites or services we do not operate, including Google Play, the Apple App Store, Google or Apple accounts, or AdMob advertisers.</p>
@@ -165,6 +166,8 @@
     <h3>3.1 Account and identity</h3>
     <ul>
       <li><strong>Google Sign-In (optional).</strong> If you tap “Continue with Google”, Google shares an ID token with us. Firebase Authentication then stores your Google user id, display name, email address, and profile photo URL. We use this to create or restore your Iron Habit account so plans and progress can sync across devices.</li>
+      <li><strong>Sign in with Apple (optional, iOS).</strong> Apple shares an identity token with us. Firebase Authentication then stores your Apple user id, the email address Apple gives us (your real address, or a private relay address if you chose “Hide My Email”), and your name if you chose to share it. We use it the same way as Google Sign-In.</li>
+      <li><strong>Email and password (optional).</strong> If you create an account with an email address, Firebase Authentication stores the address and a salted hash of the password. We never see or store the password itself.</li>
       <li><strong>Guest / anonymous use.</strong> If you skip sign-in, Firebase can create an anonymous account, or the app can keep data only on the device. Guest data lives on that device until you sign in; signing in later uploads what is already on the device and merges it with any cloud copy for that Google account.</li>
       <li><strong>Firebase user id (UID).</strong> A unique id assigned by Firebase. All cloud documents for you sit under <code>users/{uid}</code>.</li>
     </ul>
@@ -219,6 +222,7 @@
       <li>how many food scans you have used today;</li>
       <li>whether Gemini has already written you a first AI plan (Basic includes one lifetime AI build);</li>
       <li>purchase tokens and entitlement state that Google Play or the Apple App Store returns to the app.</li>
+      <li><strong>Server-verified subscriptions.</strong> After a purchase, and when the app starts, our server re-checks the subscription with Google Play (the Google Play Developer API) or Apple (the App Store Server API) and records the verified tier, store, product id, state, renewal setting and expiry in <code>users/{uid}/subscription/current</code>. That record is what lets a subscription bought on one platform unlock the same account on the other. To stop one subscription unlocking several accounts, we keep a one-way SHA-256 hash of the Play purchase token or the App Store original transaction id, bound to the account that claimed it. On iOS, purchases also carry an app account token: a random-looking identifier derived from your Firebase UID, not your email.</li>
     </ul>
     <p>We do not see your full payment card number. Google Play processes payment on Android. Apple processes payment on iOS.</p>
 
@@ -230,6 +234,7 @@
       <li><strong>Advertising identifier.</strong> Free and Basic show Google AdMob banners. On Android the app declares the advertising-ID permission for those banners. On iOS, ads may use Apple’s advertising identifier only if you allow tracking. Advanced is ad-free and does not show those banners.</li>
       <li><strong>App Check.</strong> Release builds exchange an integrity token with Firebase App Check before AI calls, so the request comes from a genuine install. On Android that token is from Google Play Integrity. On iOS it is from Apple App Attest. Emulators and sideloaded copies typically fail this check. The token is an integrity attestation, not your workout log.</li>
       <li><strong>Device identifier for usage limits (Android).</strong> To enforce the free and paid usage allowances — such as the daily photo-scan limit and the monthly plan-rebuild limit — and to stop them being reset by clearing app data or reinstalling, the Android app reads the system <code>ANDROID_ID</code>, stores only a one-way SHA-256 hash of it, and uses that hash as the key for a per-device usage counter in Firestore. We never store or transmit the raw identifier, and it is used solely for abuse prevention and quota enforcement — not for advertising, profiling or cross-app tracking.</li>
+      <li><strong>Device identifier for usage limits (iOS).</strong> iOS has no equivalent system identifier, so the app creates a random identifier once and keeps it in this device’s Keychain (it does not sync through iCloud Keychain). As on Android, only a one-way SHA-256 hash of it is sent, and only to key the per-device usage counter.</li>
       <li><strong>Store and advertising identifiers</strong> used by AdMob, in-app purchases, on-demand videos and App Check. We do not run our own location tracking.</li>
     </ul>
 
@@ -248,10 +253,23 @@
     <p>
       Iron Habit’s use of information received from Health Connect adheres to the
       <a href="https://support.google.com/googleplay/android-developer/answer/12991134">Health Connect Permissions policy</a>,
-      including the Limited Use requirements. Health Connect is not used by the iOS app.
+      including the Limited Use requirements. The iOS app uses Apple Health instead (section 3.9).
     </p>
 
-    <h3>3.9 What we do not collect</h3>
+    <h3 id="apple-health">3.9 Apple Health (iOS, optional)</h3>
+    <p>
+      If you choose to connect Apple Health, the iOS app asks for read access to
+      <strong>active energy</strong> and <strong>resting energy</strong>. It never asks for any other
+      Health data type and never writes anything to Apple Health.
+    </p>
+    <ul>
+      <li><strong>What we read:</strong> today’s active and resting energy, totalled from local midnight to now, from whichever apps and devices (for example Apple Watch) write to Apple Health and you allow.</li>
+      <li><strong>How it is used:</strong> today’s calories burned are shown next to the calories you have eaten on the Today tab and in Settings → Connected apps. On the Advanced plan, today’s active calories are also included in the prompt for your daily AI coach insight (see <a href="#ai">section 5.3</a>), so Google Gemini processes that number to write your note.</li>
+      <li><strong>What we do not do:</strong> we do not store Apple Health data on our servers, upload it to Firestore, sell it, share it with advertisers or data brokers, or use it for advertising, marketing, profiling or data mining. The app reads it fresh when the Today tab opens and keeps it only in memory. It is not included in the plans, chat messages or photos we send anywhere else.</li>
+      <li><strong>Your control:</strong> Apple Health is off until you tap Connect. You can change or revoke access at any time in the Health app (your profile → Apps → Iron Habit) or in iOS Settings → Health → Data Access &amp; Devices; the app keeps working without it.</li>
+    </ul>
+
+    <h3>3.10 What we do not collect</h3>
     <ul>
       <li>precise GPS location;</li>
       <li>contacts, SMS, call logs, or microphone audio;</li>
@@ -269,6 +287,8 @@
       <li>build a catalog workout around your gear, injuries, days and session length;</li>
       <li>on paid tiers, ask Gemini to write a workout week and a seven-day meal plan that hits your targets, cuisine, diet and allergies;</li>
       <li>estimate calories from a meal photo you submit, then let you edit every number before save;</li>
+      <li>on Advanced, write a short daily coach note and answer your coach chat messages, including drafting a new meal or workout week that you can apply or discard;</li>
+      <li>show today’s calories burned, if you connect Health Connect or Apple Health;</li>
       <li>enforce daily scan limits and monthly plan-refresh limits for the tier you paid for;</li>
       <li>show or hide ads based on whether the tier is ad-free;</li>
       <li>download or open only the muscle-group video pack you choose;</li>
@@ -279,7 +299,7 @@
     <ul>
       <li><strong>Contract</strong> — providing the app, sync, subscriptions and the features you request;</li>
       <li><strong>Legitimate interests</strong> — security (App Check), crash diagnosis, preventing AI abuse, understanding basic usage;</li>
-      <li><strong>Consent</strong> — Google Sign-In, taking or picking a photo, optional AI plan generation after the in-app AI disclaimer, and advertising where consent is required by AdMob / your device settings;</li>
+      <li><strong>Consent</strong> — Google Sign-In and Sign in with Apple, taking or picking a photo, connecting Health Connect or Apple Health, optional AI plan generation, coach insights and coach chat after the in-app AI disclaimer, and advertising where consent is required by AdMob / your device settings;</li>
       <li><strong>Explicit consent / health-data exception for fitness services you request</strong> — profile answers about sex, body measurements, injuries, allergies and diet, used only to generate targets and plans for you.</li>
     </ul>
 
@@ -323,7 +343,7 @@
       in-app AI notice, the app periodically sends Gemini a text prompt that can include: the name you gave us, your goal and
       goal weight, current and starting weight, how many days since your last weigh-in, how far into your goal timeline you are, today’s calorie
       and macro targets and what you have eaten so far, water logged against your water target, calories
-      burned from Health Connect (if connected), today’s planned and finished workouts, and simple counts
+      burned from Health Connect or Apple Health (if connected), today’s planned and finished workouts, and simple counts
       from the last seven days (days logged, days on target, workouts finished).
     </p>
     <p>
@@ -332,7 +352,38 @@
       a few per day; if Gemini is unavailable the app shows an on-device tip instead.
     </p>
 
-    <h3>5.4 Who runs the model</h3>
+    <h3 id="coach-chat">5.4 Coach chat (Advanced)</h3>
+    <p>
+      Advanced members can chat with an AI coach from the Today tab. The coach only helps with two
+      things: building or adjusting your weekly meal plan around foods you actually eat, and building
+      or adjusting your weekly workout plan from our exercise catalog. It declines anything else,
+      including medical questions, with a fixed in-app reply.
+    </p>
+    <p>Each message you send goes to Gemini in a text prompt that can include:</p>
+    <ul>
+      <li>your message (up to 1,000 characters) and the last few messages of the conversation;</li>
+      <li>the name you gave us, your goal, current and goal weight, experience, country and region, cuisines, diet, allergies, equipment, focus muscles and injury areas to avoid;</li>
+      <li>your calorie and macro targets;</li>
+      <li>a summary of your current week’s meal plan and workout plan;</li>
+      <li>foods and exercises you told the coach you like or want to avoid;</li>
+      <li>when the coach drafts a workout, a shortlist of exercise ids from our catalog.</li>
+    </ul>
+    <p>
+      We do not send your email, payment details, food photos or Apple Health / Health Connect data
+      in a chat request. Please don’t type anything into the chat that you would not want processed
+      by Google’s AI.
+    </p>
+    <p>
+      The conversation and the list of foods and exercises the coach remembers are stored on your
+      device only, never in our database. You can make the coach forget any remembered item from
+      the “What I remember” sheet. Both are cleared when you sign out or use “Delete all my data”.
+      A drafted plan changes nothing until you tap Apply; an applied plan is saved like any other
+      plan (and synced after sign-in), and the foods and exercises you told the coach about are
+      used when your later AI plans are built. The chat is limited to 30 messages a day and 30
+      drafted plans a month.
+    </p>
+
+    <h3>5.5 Who runs the model</h3>
     <p>
       Calls go through <strong>Firebase AI Logic</strong> to <strong>Google Gemini</strong>
       (currently a Flash model on Google’s Vertex AI / global Gemini endpoint), protected by
@@ -377,7 +428,7 @@
     <ul>
       <li><strong>Free</strong> — catalog-built workout, 2 photo scans a day, ads, no AI meal plan.</li>
       <li><strong>Basic (USD 2.99/month list price, charged by the app store in your currency)</strong> — one AI workout and meal plan, 5 photo scans a day. Ads still show.</li>
-      <li><strong>Advanced (USD 10.99/month list price)</strong> — plan rebuilds within the monthly allowance, 20 photo scans a day, no ads.</li>
+      <li><strong>Advanced (USD 10.99/month list price on Google Play, USD 12.99/month on the App Store)</strong> — plan rebuilds within the monthly allowance, 20 photo scans a day, the AI coach note and coach chat, no ads.</li>
     </ul>
     <p>
       Purchases, cancellations, refunds and tax are handled by the store you bought from:
@@ -395,7 +446,7 @@
       <tbody>
         <tr>
           <td>Firebase Authentication (Google)</td>
-          <td>Sign-in (Google or anonymous)</td>
+          <td>Sign-in (Google, Apple, email or anonymous)</td>
           <td>UID, email, name, photo URL, tokens</td>
         </tr>
         <tr>
@@ -420,8 +471,8 @@
         </tr>
         <tr>
           <td>Firebase AI Logic / Gemini / Vertex AI</td>
-          <td>Plans and food-photo estimates</td>
-          <td>Prompt text, downscaled image, App Check token</td>
+          <td>Plans, food-photo estimates, coach insights and coach chat</td>
+          <td>Prompt text (including chat messages), downscaled image, App Check token</td>
         </tr>
         <tr>
           <td>Firebase App Check (Play Integrity on Android, App Attest on iOS)</td>
@@ -434,7 +485,12 @@
           <td>Store account, product id, purchase token</td>
         </tr>
         <tr>
-          <td>On-demand exercise videos (Google Play Asset Delivery on Android)</td>
+          <td>Cloud Functions for Firebase, with the Google Play Developer API and the App Store Server API</td>
+          <td>Verify subscriptions and receive the stores’ renewal and cancellation notices</td>
+          <td>Firebase UID, purchase token or transaction id, subscription state</td>
+        </tr>
+        <tr>
+          <td>On-demand exercise videos (Google Play Asset Delivery on Android, Apple-hosted Background Assets on iOS)</td>
           <td>Demo videos for the muscle group you open</td>
           <td>Device and download state; not your food photos</td>
         </tr>
@@ -444,9 +500,9 @@
           <td>Advertising ID, device and ad interaction data</td>
         </tr>
         <tr>
-          <td>Google Sign-In / Credential Manager</td>
+          <td>Google Sign-In / Credential Manager, Sign in with Apple</td>
           <td>Optional account linking</td>
-          <td>Google account you pick</td>
+          <td>Google or Apple account you pick</td>
         </tr>
         <tr>
           <td>Musclewiki API (optional fallback)</td>
